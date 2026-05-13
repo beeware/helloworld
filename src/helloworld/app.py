@@ -6,6 +6,13 @@ import toga
 from toga.style.pack import COLUMN, ROW
 
 
+def greeting(name):
+    if name:
+        return f"Hello, {name}"
+    else:
+        return "Hello, stranger"
+
+
 class HelloWorld(toga.App):
     def startup(self):
         main_box = toga.Box(direction=COLUMN)
@@ -36,7 +43,7 @@ class HelloWorld(toga.App):
     async def say_hello(self, widget):
         await self.main_window.dialog(
             toga.InfoDialog(
-                f"Hello, {self.name_input.value}",
+                greeting(self.name_input.value),
                 "Hi there!",
             )
         )
