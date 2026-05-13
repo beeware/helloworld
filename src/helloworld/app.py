@@ -6,6 +6,7 @@ import toga
 from toga.style.pack import COLUMN, ROW
 
 import faker
+import httpx
 
 
 def greeting(name):
@@ -44,10 +45,15 @@ class HelloWorld(toga.App):
 
     async def say_hello(self, widget):
         fake = faker.Faker()
+        with httpx.Client() as client:
+            response = client.get("https://tutorial.beeware.org/tutorial/message.json")
+
+        payload = response.json()
+
         await self.main_window.dialog(
             toga.InfoDialog(
                 greeting(self.name_input.value),
-                f"A message from {fake.name()}: {fake.text()}",
+                f"A message from {fake.name()}: {payload['body']}",
             )
         )
 
