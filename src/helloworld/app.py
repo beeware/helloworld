@@ -5,6 +5,8 @@ My first application
 import toga
 from toga.style.pack import COLUMN, ROW
 
+import faker
+
 
 def greeting(name):
     if name:
@@ -41,10 +43,11 @@ class HelloWorld(toga.App):
         self.main_window.show()
 
     async def say_hello(self, widget):
+        fake = faker.Faker()
         await self.main_window.dialog(
             toga.InfoDialog(
                 greeting(self.name_input.value),
-                "Hi there!",
+                f"A message from {fake.name()}: {fake.text()}",
             )
         )
 
