@@ -33,8 +33,13 @@ class HelloWorld(toga.App):
         self.main_window.content = main_box
         self.main_window.show()
 
-    def say_hello(self, widget):
-        print(f"Hello, {self.name_input.value}")
+    async def say_hello(self, widget):
+        await self.main_window.dialog(
+            toga.InfoDialog(
+                f"Hello, {self.name_input.value}",
+                "Hi there!",
+            )
+        )
 
 
 def main():
